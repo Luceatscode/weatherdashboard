@@ -11,11 +11,40 @@ fetch("https://api.openweathermap.org/data/2.5/forecast/?lat=40.680000&lon=-111.
     .then(function (data) {
         console.log(data);
     });
-
-const searchInput= document.getElementById('search-bar').getElementsByTagName('input')[0]
-const searchButton= document.getElementById('search-bar').getElementsByTagName('button')[0]
+const searchBar= document.getElementById('search-bar')
+const searchInput= searchBar.getElementsByTagName('input')[0]
+const searchButton= searchBar.getElementsByTagName('button')[0]
 console.log(searchInput)
 console.log(searchButton)
+
+function handleRecentSearches (cityName){
+    console.log(cityName)
+    const searchHistory= JSON.parse(localStorage.getItem('recentCitySearches'))
+    console.log(searchHistory)
+    
+    if (searchHistory!==null){
+        console.log(searchHistory)
+        
+        localStorage.setItem('recentCitySearches', JSON.stringify([
+            cityName,
+            ...searchHistory
+        ]))
+    } else{
+        localStorage.setItem('recentCitySearches', JSON.stringify([
+            cityName,
+        ]))
+    }
+    // Loop to show recent searches buttons
+    const newSearchHistory= JSON.parse(localStorage.getItem('recentCitySearches'))
+    const searchHistoryEl= document.getElementById('search-history')
+    newSearchHistory.forEach(element => {
+        console.log(element)
+        const newButton= document.createElement('button')
+        newButton.textContent= element
+        searchHistoryEl.appendChild(newButton)
+        
+    });
+}
 
 searchButton.addEventListener('click', function (){
     const inputText= searchInput.value
@@ -31,5 +60,17 @@ searchButton.addEventListener('click', function (){
     })
     .then(function (data) {
         console.log(data);
+
+        handleRecentSearches(data[0].name)
     });
 })
+
+
+
+
+
+
+
+
+
+
