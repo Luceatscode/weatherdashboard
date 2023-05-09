@@ -1,5 +1,28 @@
-#search-history{
-    display:flex;
+body{
+    display: flex;
+}
+
+#search-container{
+    display: flex;
     flex-direction: column;
-    align-items: start;
+}
+
+#search-history{
+    display: flex;
+    flex-direction: column;
+}
+
+#current-weather-container{
+    display: flex;
+    flex-direction: column;
+}
+
+#five-day{
+    display: flex;
+    margin-right: 8%;
+}
+
+.card{
+    border: 1px solid black;
+    padding: 10%;
 }
